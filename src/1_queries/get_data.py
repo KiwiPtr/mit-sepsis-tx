@@ -13,27 +13,28 @@ def create_aux_dataset(client, project_id):
     print(f"Creating dataset {dataset_id}...")
     dataset = client.create_dataset(dataset, exists_ok=True)
 
-
+#changed queries to 1_queries here to fit new destination, and added 1_aux_icd10codes script to list
 def create_aux_tables(client,
                       project_id,
-                      script_filenames=['src/queries/pivoted/pivoted_codes.SQL',
-                                        'src/queries/pivoted/pivoted_comorbidities.SQL',
-                                        'src/queries/vitals/vital_day1.SQL',
-                                        'src/queries/vitals/vital_day2.SQL',
-                                        'src/queries/vitals/vital_day3.SQL',
-                                        'src/queries/vitals/vital_day4.SQL',
-                                        'src/queries/labs/lab_day1.SQL',
-                                        'src/queries/labs/lab_day2.SQL',
-                                        'src/queries/labs/lab_day3.SQL',
-                                        'src/queries/labs/lab_day4.SQL',
-                                        'src/queries/bg/bg_day1.SQL',
-                                        'src/queries/bg/bg_day2.SQL',
-                                        'src/queries/bg/bg_day3.SQL',
-                                        'src/queries/bg/bg_day4.SQL',
-                                        'src/queries/bg_art/bg_art_day1.SQL',
-                                        'src/queries/bg_art/bg_art_day2.SQL',
-                                        'src/queries/bg_art/bg_art_day3.SQL',
-                                        'src/queries/bg_art/bg_art_day4.SQL']):
+                      script_filenames=['src/1_queries/pivoted/pivoted_codes.SQL',
+                                        'src/1_queries/1_aux_icd10codes.SQL',
+                                        'src/1_queries/pivoted/pivoted_comorbidities.SQL',
+                                        'src/1_queries/vitals/vital_day1.SQL',
+                                        'src/1_queries/vitals/vital_day2.SQL',
+                                        'src/1_queries/vitals/vital_day3.SQL',
+                                        'src/1_queries/vitals/vital_day4.SQL',
+                                        'src/1_queries/labs/lab_day1.SQL',
+                                        'src/1_queries/labs/lab_day2.SQL',
+                                        'src/1_queries/labs/lab_day3.SQL',
+                                        'src/1_queries/labs/lab_day4.SQL',
+                                        'src/1_queries/bg/bg_day1.SQL',
+                                        'src/1_queries/bg/bg_day2.SQL',
+                                        'src/1_queries/bg/bg_day3.SQL',
+                                        'src/1_queries/bg/bg_day4.SQL',
+                                        'src/1_queries/bg_art/bg_art_day1.SQL',
+                                        'src/1_queries/bg_art/bg_art_day2.SQL',
+                                        'src/1_queries/bg_art/bg_art_day3.SQL',
+                                        'src/1_queries/bg_art/bg_art_day4.SQL']):
     # Run SQL scripts in order
     for script_filename in script_filenames:
         print(f"Executing {script_filename}...")
@@ -45,7 +46,7 @@ def create_aux_tables(client,
 
 def create_main_table(client, project_id, destination):
     print(f"Creating main table {destination}...")
-    with open('src/queries/main.SQL', 'r') as script_file:
+    with open('src/1_queries/main.SQL', 'r') as script_file:
         script = script_file.read().replace("physionet-data", project_id).replace("db_name", project_id, -1)
         df = client.query(script).to_dataframe()
         df.to_csv(destination, index=False)
@@ -67,9 +68,11 @@ def main(args):
 
 
 if __name__ == "__main__":
-    # parse the arguments
+    # parse the arguments, added --sql part
     parser = ArgumentParser()
     parser.add_argument(
         "-d", "--destination", default='data/MIMIC_data.csv', help="output csv file")
+    parser.add_argument(
+    "--sql", default='src/1_queries/main.sql', help="SQL script file")
     args = parser.parse_args()
     main(args)

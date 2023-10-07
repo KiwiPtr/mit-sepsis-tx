@@ -9,3 +9,4 @@ shap==0.40.0
 tableone==0.7.12
 tqdm==4.64.1
 xgboost==1.7.5
+google-cloud-bigquery[pandas]

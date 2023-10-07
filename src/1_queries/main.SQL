@@ -164,7 +164,7 @@ WITH
     GROUP BY stay_id
 )
 
--- auxiliary tables for urine outputs across 24h, 48h, 72h, 96h
+-- auxiliary tables for urine outputs across 24h, 48h, 72h, 96h, note project id appeared to be hardcoded so swapped out for db_name in icu
 
 , uo_24h AS (
     SELECT
@@ -173,7 +173,7 @@ WITH
     
     FROM  `physionet-data.mimiciv_derived.urine_output_rate`  AS uor
 
-    LEFT JOIN `protean-chassis-368116.mimiciv_derived.icustay_detail` icu
+    LEFT JOIN `db_name.mimiciv_derived.icustay_detail` icu
     ON icu.stay_id = uor.stay_id
 
     WHERE urineoutput_24hr is NOT NULL
@@ -190,7 +190,7 @@ WITH
 
     FROM  `physionet-data.mimiciv_derived.urine_output_rate`  AS uor
 
-    LEFT JOIN `protean-chassis-368116.mimiciv_derived.icustay_detail` icu
+    LEFT JOIN `db_name.mimiciv_derived.icustay_detail` icu
     ON icu.stay_id = uor.stay_id
 
     WHERE urineoutput_24hr is NOT NULL
@@ -207,7 +207,7 @@ WITH
 
     FROM  `physionet-data.mimiciv_derived.urine_output_rate`  AS uor
 
-    LEFT JOIN `protean-chassis-368116.mimiciv_derived.icustay_detail` icu
+    LEFT JOIN `db_name.mimiciv_derived.icustay_detail` icu
     ON icu.stay_id = uor.stay_id
 
     WHERE urineoutput_24hr is NOT NULL
@@ -224,7 +224,7 @@ WITH
 
     FROM  `physionet-data.mimiciv_derived.urine_output_rate`  AS uor
 
-    LEFT JOIN `protean-chassis-368116.mimiciv_derived.icustay_detail` icu
+    LEFT JOIN `db_name.mimiciv_derived.icustay_detail` icu
     ON icu.stay_id = uor.stay_id
 
     WHERE urineoutput_24hr is NOT NULL
