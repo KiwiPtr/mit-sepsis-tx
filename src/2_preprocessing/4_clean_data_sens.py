@@ -8,7 +8,7 @@ def clean_data(cohort_number, hr_bound, treatment):
 
     # Start of Operations that in the main analysis are being done in the table1 script
 
-    # Encode race_white as being white vs. non-white
+    # Encode race_white as being white vs. non-white, note this will thow up incorrect number in summary tables for REG but doesn't matter for Language analysis
     data['race_white'] = data.race_group.apply(lambda x: "White" if x == "White" else "Racial-Ethnic Group")
 
     # Continuous Variables

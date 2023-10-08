@@ -58,35 +58,3 @@ The ICD-9 to ICD-10 translation based on this [GitHub Repo](https://github.com/A
 Run the scripts in 3_models.
 
 ### Random notes
-
-Locations where Race variables are mentioned
-config
-1-Both confounders files in config
-queries
-2-Main sql file line 346 to 370
-preprocessing
-3-cohort_main line 23 to 27
-4-cohort_sens line 25 to 29
-5-table1 line 4 to 12, 48, 190 to 200
-6-table2 line 8 to 12, 56, 149
-7-clean_data_1coh line 124 to 133, 144
-8-clean_data_1coh line 119 to 128, 139
-9-clean_data_sens line 11 to 12, 165 to 174, 185
-10-utils line 12 to 13
-models
-11-parallel logreg_cv_all_coh_races line 8, 38 to 74, 104
-12-parallel logreg_cv_all_coh line 22, 40 to 63, 93
-13-parallel xgb_cv_all_coh_races line 9, 28, 45 to 84, 114
-14-parallel xgb_cv_all_coh line 28, 51 to 74, 104
-15-sens logreg_cv_all_coh_races line 7, 15, 20 to 55, 99
-16-sens logreg_cv_all_coh line 20 to 43, 66, 87
-17-sens utils, none
-18-sens parallel xgb_cv_all_coh_races line 8, 24 to 32, 44 to 63, 107
-19-sens parallel xgb_cv_all_coh line 29 to 52, 98
-20-models_audit, none
-plots
-21-all_races line 16 to 17, 40 to 44, 62, 73, 84 to 85
-22-white_nonwhite line 48, 
-
-files with races in the name breakdown the cohort to all different race types whereas other ones just use white vs non-white
-probably modify these ones to get what we need and somehow exclude other files

@@ -5,11 +5,11 @@ def table_one(treatment, hr_bound):
 
     data = pd.read_csv(f'data/main/MIMIC_coh_1_{treatment}.csv')
 
-    # Encode race_white as being white vs. non-white
-    data['race_white'] = data.race_group.apply(lambda x: "White" if x == "White" else "Racial-Ethnic Group")
+    # Encode language as English proficiency or Limited English proficiency swapped with english prof part
+    data['eng_prof'] = data['language'].apply(lambda x: "Limited" if x == '?' else "Proficient")
 
-    # Groupby Variable
-    groupby = ['race_white']
+    # Groupby Variable, replaced race_white with eng_prof
+    groupby = ['eng_prof']
 
     # Continuous Variables
     data['los_hosp_dead'] = data[data.mortality_in == 1].los_hospital
@@ -18,8 +18,8 @@ def table_one(treatment, hr_bound):
     data['los_icu_dead'] = data[data.mortality_in == 1].los_icu
     data['los_icu_surv'] = data[data.mortality_in == 0].los_icu
 
-    # Encode language as English proficiency or Limited English proficiency
-    data['eng_prof'] = data['language'].apply(lambda x: "Limited" if x == '?' else "Proficient")
+    # Encode race_white as being white vs. non-white swapped with english prof part
+    data['race_white'] = data.race_group.apply(lambda x: "White" if x == "White" else "Racial-Ethnic Group")
 
     # Create variable for receiving fluids, if fluid volume is not na
     data['fluids_overall'] = data['fluids_volume'].apply(lambda x: 1. if x > 0 else 0.)
@@ -52,10 +52,11 @@ def table_one(treatment, hr_bound):
     # collapse CKD into binary -> CKD stage == 3 or CKD stage < 3
     data['ckd_stages'] = data['ckd_stages'].apply(lambda x: 3 if x == 3 else 0)
 
+# Hashed eng_prof, unhashed race_group
     order = {
-        #"race_group": ["White", "Black", "Hispanic", "Asian", "Other"],
+        "race_group": ["White", "Black", "Hispanic", "Asian", "Other"],
         "gender": ["F", "M"],
-        "eng_prof": ["Limited", "Proficient"],
+        #"eng_prof": ["Limited", "Proficient"],
         "insurance": ["Medicare", "Medicaid", "Other"],
         "adm_elective": [1, 0],
         "major_surgery": [1., 0.],
@@ -75,12 +76,13 @@ def table_one(treatment, hr_bound):
         "skin": [1., 0.],
     }
 
+# Changed eng_prof to race_group
     limit = {"gender": 1,
             "adm_elective": 1,
             "major_surgery": 1,
             "mortality_in": 1,
             "mortality_90": 1,
-            "eng_prof": 1,
+            "race_group": 1,
             "MV_elig": 1,
             "RRT_elig": 1,
             "VP_elig": 1,
@@ -101,10 +103,11 @@ def table_one(treatment, hr_bound):
             "biliary": 1,
             "skin": 1,
             }
-    
+
+# Changed eng_prof to race_group    
     categ = ['gender',
              'insurance',
-             'eng_prof',
+             'race_group',
              'adm_elective',
              'major_surgery',
              'mortality_in', 

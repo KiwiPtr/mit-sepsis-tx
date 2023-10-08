@@ -22,17 +22,17 @@ print(f"Removed {len(df1) - len(df2)} stays without Full Code (admission)")
 demo2 = print_demo(get_demography(df2))
 print(f"{len(df2)} stays with sepsis and Full Code \n({demo2})\n")
 
-# Remove patients with Race "Other"
-df3 = df2[df2.race_group != "Other"]
-print(f"Removed {len(df2) - len(df3)} patients with no race information or other")
+# Remove patients with no english proficiency data entered, this used to be race filter
+df3 = df2[df2.language.notna()]
+print(f"Removed {len(df2) - len(df3)} patients with no english proficiency information")
 demo3 = print_demo(get_demography(df3))
-print(f"{len(df3)} ICU stays with sepsis, full code, and race known \n({demo3})\n")
+print(f"{len(df3)} ICU stays with sepsis, full code, and language data \n({demo3})\n")
 
 # Remove patients with CKD stage > 3
 df4 = df3[(df3.ckd_stages <= 3)]
 print(f"Removed {len(df3) - len(df4)} stays with CKD stage > 3")
 demo4 = print_demo(get_demography(df4))
-print(f"{len(df4)} stays with sepsis, full code, known race, and 1 day <= ICU LoS, and no CKD stage >3 \n({demo4})\n")
+print(f"{len(df4)} stays with sepsis, full code, language data, and 1 day <= ICU LoS, and no CKD stage >3 \n({demo4})\n")
 
 
 # Create 4 new cohorts, iterating, removing patients with LoS < 2 day , 3 days, 4 days, 5 days
