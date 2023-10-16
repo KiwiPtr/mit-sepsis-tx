@@ -4,6 +4,7 @@ import numpy as np
 
 def clean_data(cohort_number, hr_bound, treatment):
 
+#Left main as the directory on this one, apparently name of python fule is likely to be incorrect as datasets for main and sens analysis swapped in project, should likely be main in file name
     data = pd.read_csv(f'data/main/MIMIC_coh_{cohort_number}_{treatment}.csv')
 
     # Start of Operations that in the main analysis are being done in the table1 script

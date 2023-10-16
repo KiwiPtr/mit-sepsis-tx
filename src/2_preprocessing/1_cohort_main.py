@@ -52,7 +52,7 @@ for i, los_min in enumerate(range(2, 6)):
 
     print(f"Removed {len(df5) - len(df6)} recurrent stays")
     demo6 = print_demo(get_demography(df6))
-    print(f"{len(df6)} stays with sepsis, {los_min} day <= ICU LoS, full code, race known \n({demo6})\n")
+    print(f"{len(df6)} stays with sepsis, {los_min} day <= ICU LoS, full code, language data \n({demo6})\n")
 
     print(f"\nSub-Ramification Starts for Treatment-specific Elegibity Inclusion Criteria\n")
 

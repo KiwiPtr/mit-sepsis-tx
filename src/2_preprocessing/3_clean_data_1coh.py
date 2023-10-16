@@ -4,7 +4,8 @@ import numpy as np
 
 def clean_data(day, hr_bound, treatment):
 
-    data = pd.read_csv(f'data/MIMIC_coh_4.csv')
+#Added in sens part to directory, slightly confusing on naming as analysis was swapped at some point
+    data = pd.read_csv(f'data/sens/MIMIC_coh_4.csv')
 
     # re-encode treatment according to elegibity window, hr_bound
     data['MV_elig']  = data['MV_init_offset_abs_hours'].apply(lambda x:  1 if (x < hr_bound) else 0)
@@ -152,7 +153,8 @@ def clean_data(day, hr_bound, treatment):
                  ['pneumonia', 'uti', 'biliary', 'skin']
     ]
 
-    data.to_csv(f'data/clean/coh_4/day_{day}_{treatment}.csv', index=False)
+#added sens to write path
+    data.to_csv(f'data/sens/clean/coh_4/day_{day}_{treatment}.csv', index=False)
 
 # Main
 days = [1,2,3,4]

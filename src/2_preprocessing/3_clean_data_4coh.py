@@ -4,7 +4,8 @@ import numpy as np
 
 def clean_data(cohort_number, treatment):
 
-    data = pd.read_csv(f'data/MIMIC_coh_{cohort_number}.csv')
+#Added sens to read path
+    data = pd.read_csv(f'data/sens/MIMIC_coh_{cohort_number}.csv')
 
     # Get a column with the day when treatment was initiated
     # Among patients who were treated only, i.e, MV_elig == 1
@@ -147,6 +148,7 @@ def clean_data(cohort_number, treatment):
                  ['pneumonia', 'uti', 'biliary', 'skin']
     ]
 
+#Added sens to write path
     data.to_csv(f'data/clean/coh_{cohort_number}_{treatment}.csv', index=False)
 
 # Main
